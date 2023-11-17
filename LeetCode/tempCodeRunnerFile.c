@@ -1,3 +1,2 @@
-
-            tmpNum=atoi(tokens[index]);
-            pushStack(stack, &top, tmpNum);
+int k=3;
+    
