@@ -14,6 +14,10 @@ struct TreeNode{
  *     struct TreeNode *right;
  * };
  */
+/**
+ * 迭代
+*/
+
 void sPush(struct TreeNode ** stack, int * top, struct TreeNode * in){
     if((*top)>=2000){
         printf("push error!\n");

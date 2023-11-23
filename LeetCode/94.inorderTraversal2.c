@@ -6,6 +6,7 @@ struct TreeNode{
     struct TreeNode *left;
     struct TreeNode *right;
 };
+
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -35,41 +36,28 @@ struct TreeNode * sPop(struct TreeNode ** stack, int * top){
 /**
  * Note: The returned array must be malloced, assume caller calls free().
  */
-int* postorderTraversal(struct TreeNode* root, int* returnSize) {
-    int *out=(int *)malloc(sizeof(int)*2000);
-    int i, j, tint;
+int* inorderTraversal(struct TreeNode* root, int* returnSize) {
+    int * out=(int *)malloc(sizeof(int)*2000);
+    int i, j;
     struct TreeNode * stack[2000];
     int stackTop=0;
-    struct TreeNode * tmp;
     *returnSize=0;
-    
-    if(root==NULL){
-        return out;
-    }
-    sPush(stack, &stackTop, root);
-    while(stackTop>0){
-        tmp=stack[stackTop-1];
-        
-        sPop(stack, &stackTop);
-        out[(*returnSize)++]=tmp->val;
-        if(tmp->left){
-            sPush(stack, &stackTop, tmp->left);
+    struct TreeNode * now=root;
+
+    while(now!=NULL||stackTop!=0){
+        if(now!=NULL){
+            sPush(stack, &stackTop, now);
+            now=now->left;
         }
-        if(tmp->right){
-            sPush(stack, &stackTop, tmp->right);
+        else{
+            now=sPop(stack, &stackTop);
+            out[(*returnSize)++]=now->val;
+            now=now->right;
         }
-    }
-    i=0, j=(*returnSize)-1;
-    while(i<j){
-        tint=out[j];
-        out[j]=out[i];
-        out[i]=tint;
-        i++;j--;
     }
     
     return out;
 }
-
 int main(){
     int i,j;
     int * out;
@@ -82,7 +70,7 @@ int main(){
     node2->val=2, node2->left=node3, node2->right=NULL;
     node3->val=3, node3->left=NULL, node3->right=NULL;
     root=node1;
-    out=postorderTraversal(root, returnSize);
+    out=inorderTraversal(root, returnSize);
     for(i=0;i<(*returnSize);i++){
         printf("%d ", out[i]);
     }
