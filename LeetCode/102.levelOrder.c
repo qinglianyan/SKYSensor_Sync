@@ -15,6 +15,11 @@ struct TreeNode{
  *     struct TreeNode *right;
  * };
  */
+/**
+ * 注意的点：
+ * returnSize和returnColumnSizes在main里面就申请好一个地址
+ * 然后在函数里面一次申请够地址
+*/
 bool queueEmpty(struct TreeNode ** queue, int *top, int *end){
     return (*top)==(*end);
 }
@@ -89,7 +94,6 @@ int main(){
     int i, j;
     int ** out;
     int *returnSize = (int *)malloc(sizeof(int));
-    // int ** returnColumnSizes=(int **)malloc(sizeof(int *));
     int **returnColumnSizes=(int **)malloc(sizeof(int *));
 
     *returnSize = 0;
