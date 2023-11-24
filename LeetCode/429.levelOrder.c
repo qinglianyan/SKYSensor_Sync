@@ -43,10 +43,12 @@ struct Node *quePop(struct Node **queue, int *queTop, int *queEnd){
  * Note: Both returned array and *columnSizes array must be malloced, assume caller calls free().
  */
 int** levelOrder(struct Node* root, int* returnSize, int** returnColumnSizes) {
-    int **out=(struct Node **)malloc(sizeof(struct Node *)*1000);
+    int **out=(int **)malloc(sizeof(int *)*1000);
     int i,j;
     struct Node ** queue=(struct Node **)malloc(sizeof(struct Node *)*10000);
+    struct Node * tmp;
     int queTop=0, queEnd=0;
+    int nowSize=0;
     *returnSize=0;
     *returnColumnSizes=(int *)malloc(sizeof(int)*1000);
 
@@ -56,7 +58,22 @@ int** levelOrder(struct Node* root, int* returnSize, int** returnColumnSizes) {
     if(root!=NULL){
         quePush(queue, &queTop, &queEnd, root);
     }
-    while(!queEmpty())
+    while(!queEmpty(queue, &queTop, &queEnd)){
+        nowSize=queEnd-queTop;
+        printf("nowSize = %d, Top = %d, End = %d\n", nowSize, queue[queTop]->val, queue[queEnd-1]->val);
+        out[(*returnSize)]=(int *)malloc(sizeof(int)*(nowSize));
+        (*returnColumnSizes)[(*returnSize)]=nowSize;
+        for(i=0;i<nowSize;i++){
+            tmp=quePop(queue, &queTop, &queEnd);
+            out[(*returnSize)][i]=tmp->val;
+            if(tmp->numChildren!=0){
+                for(j=0;j<tmp->numChildren;j++){
+                    quePush(queue, &queTop, &queEnd, tmp->children[j]);
+                }
+            }
+        }
+        (*returnSize)++;
+    }
     return out;
 }
 
@@ -64,10 +81,27 @@ int main(){
     int i, j;
     int **out;
     int *returnSize=(int *)malloc(sizeof(int));
-    int ** returnColumnSizes=(int **)mallod(sizeof(int *));
+    int ** returnColumnSizes=(int **)malloc(sizeof(int *));
     struct Node * root, *node1,     *node2,     *node3,     *node4,     *node5,
                         *node6,     *node7,     *node8,     *node9,     *node10,
                         *node11,    *node12,    *node13,    *node14;
+    node1=(struct Node *)malloc(sizeof(struct Node));
+    node2=(struct Node *)malloc(sizeof(struct Node));
+    node3=(struct Node *)malloc(sizeof(struct Node));
+    node4=(struct Node *)malloc(sizeof(struct Node));
+    node5=(struct Node *)malloc(sizeof(struct Node));
+    node6=(struct Node *)malloc(sizeof(struct Node));
+    node7=(struct Node *)malloc(sizeof(struct Node));
+    node8=(struct Node *)malloc(sizeof(struct Node));
+    node9=(struct Node *)malloc(sizeof(struct Node));
+    node10=(struct Node *)malloc(sizeof(struct Node));
+    node11=(struct Node *)malloc(sizeof(struct Node));
+    node12=(struct Node *)malloc(sizeof(struct Node));
+    node13=(struct Node *)malloc(sizeof(struct Node));
+    node14=(struct Node *)malloc(sizeof(struct Node));
+    
+    
+    
     node1->val=1;   node1->numChildren=4;   node1->children=(struct Node **)malloc(sizeof(struct Node *)*node1->numChildren);
     node1->children[0]=node2, node1->children[1]=node3, node1->children[2]=node4, node1->children[3]=node5;
 
@@ -94,10 +128,12 @@ int main(){
     node9->children[0]=node13;
 
     node10->val=10; node10->numChildren=0;  node10->children=NULL;
-    node10->val=11; node10->numChildren=0;  node10->children=NULL;
-    node10->val=12; node10->numChildren=0;  node10->children=NULL;
-    node10->val=13; node10->numChildren=0;  node10->children=NULL;
-    node10->val=14; node10->numChildren=0;  node10->children=NULL;
+    node11->val=11; node11->numChildren=1;  node11->children=(struct Node **)malloc(sizeof(struct Node *)*node11->numChildren);
+    node11->children[0]=node14;
+
+    node12->val=12; node12->numChildren=0;  node12->children=NULL;
+    node13->val=13; node13->numChildren=0;  node13->children=NULL;
+    node14->val=14; node14->numChildren=0;  node14->children=NULL;
     root=node1;
     *returnSize=0;
     
