@@ -23,14 +23,43 @@ void pushQue(struct TreeNode ** queue, int * queTop, int *queEnd, struct TreeNod
     if((*queEnd)>=100){
         printf("push Error\n");
     }
+    queue[(*queEnd)++]=in;
+    return ;
+}
+struct TreeNode * popQue(struct TreeNode ** queue, int * queTop, int * queEnd){
+    struct TreeNode * ret;
+    if(queEmpty(queue, queTop, queEnd)){
+        printf("pop Error!\n");
+        return ret;
+    }
+    return queue[(*queTop)++];
 }
 /**
  * Note: The returned array must be malloced, assume caller calls free().
  */
 int* rightSideView(struct TreeNode* root, int* returnSize) {
     struct TreeNode ** queue=(struct TreeNode **)malloc(sizeof(struct TreeNode *)*100);
+    struct TreeNode * tmp;
     int queTop=0, queEnd=0;
+    int nowSize=0;
+    int i, j;
     int *out=(int *)malloc(sizeof(int)*100);
+
+    *returnSize=0;
+    if(root==NULL) return out;
+    if(root!=NULL) pushQue(queue, &queTop, &queEnd, root);
+    while(!queEmpty(queue, &queTop, &queEnd)){
+        nowSize=queEnd-queTop;
+        for(i=0;i<nowSize;i++){
+            tmp=popQue(queue, &queTop, &queEnd);
+            if(i==(nowSize-1)){
+                out[(*returnSize)++]=tmp->val;
+            }
+            if(tmp->left) pushQue(queue, &queTop, &queEnd, tmp->left);
+            if(tmp->right) pushQue(queue, &queTop, &queEnd, tmp->right);
+        }
+    }
+    return out;
 
 }
 
