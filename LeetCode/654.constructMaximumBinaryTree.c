@@ -15,7 +15,23 @@ struct TreeNode {
  * };
  */
 struct TreeNode* constructMaximumBinaryTree(int* nums, int numsSize) {
-    
+    int i, j;
+    int index, max;
+    if(numsSize==0){
+        return NULL;
+    }
+    struct TreeNode * node=(struct TreeNode *)malloc(sizeof(struct TreeNode));
+    max=nums[0], index=0;
+    for(i=0;i<numsSize;i++){
+        if(nums[i]>max){
+            max=nums[i];
+            index=i;
+        }
+    }
+    node->val=max;
+    node->left=constructMaximumBinaryTree(nums, index);
+    node->right=constructMaximumBinaryTree(nums+index+1, numsSize-1-index);
+    return node;
 }
 
 void DFS(struct TreeNode *root){
