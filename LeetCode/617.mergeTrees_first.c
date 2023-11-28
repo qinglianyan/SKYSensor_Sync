@@ -16,32 +16,15 @@ struct TreeNode {
  * };
  */
 /**
- * 同步遍历
- * 将root2树合并到root1里面
+ * 这个自己没写出来,想的太复杂了
 */
-void DFS_SYNC(struct TreeNode **node1, struct TreeNode **node2){
-    if(*node1==NULL&&*node2==NULL){
-        return ;
-    }
-    if(*node1==NULL&&*node2!=NULL){
-        *node1=*node2;
-        //一开始没加return，怪不得错了
-        return;
-    }
-    if(*node1!=NULL&&*node2==NULL){
-        return ;
-    }
-    if(*node1!=NULL&&*node2!=NULL){
-        (*node1)->val+=(*node2)->val;
-    }
-
-
-    DFS_SYNC(&((*node1)->left), &(*node2)->left);
-    DFS_SYNC(&((*node1)->right), &(*node2)->right);
-}
-
 struct TreeNode* mergeTrees(struct TreeNode* root1, struct TreeNode* root2) {
-    DFS_SYNC(&root1, &root2);
+    if(root1==NULL) return root2;
+    if(root2==NULL) return root1;
+
+    root1->val+=root2->val;
+    root1->left=mergeTrees(root1->left, root2->left);
+    root1->right=mergeTrees(root1->right, root2->right);
     return root1;
 }
 
