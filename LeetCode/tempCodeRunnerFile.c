@@ -1,2 +1,3 @@
-
-                pushQueue(queue, &queTop, &queEnd, tmp->right);
+2;i++){
+        printf("%d ", path2[i]->val);
+    }printf("\n");
