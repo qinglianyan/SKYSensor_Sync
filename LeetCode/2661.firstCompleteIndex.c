@@ -4,7 +4,7 @@
 #include <string.h>
 
 #define NODE_MAX 100001
-typedef struct TreeNode {
+typedef struct TreeNode1 {
     int row;
     int col;
 }NODE;
@@ -25,7 +25,7 @@ int firstCompleteIndex(int* arr, int arrSize, int** mat, int matSize, int* matCo
     memset(row, 0, sizeof(int)*m);
     memset(col, 0, sizeof(int)*n);
     for(i=0;i<m;i++){
-        for(j=0;j<matColSize[i]){
+        for(j=0;j<matColSize[i];j++){
             xy[mat[i][j]].row=i;
             xy[mat[i][j]].col=j;
         }
@@ -33,7 +33,10 @@ int firstCompleteIndex(int* arr, int arrSize, int** mat, int matSize, int* matCo
     for(i=0;i<arrSize;i++){
         row[xy[arr[i]].row]++;
         col[xy[arr[i]].col]++;
-        if(row[xy[arr[i]].row]==matColSize[xy[arr[i].row]]||)
+        if(row[xy[arr[i]].row]==n||col[xy[arr[i]].col]==m){
+            out=i;
+            return out;
+        }
     }
     return out;
 }
