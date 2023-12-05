@@ -7,6 +7,18 @@
  * The sizes of the arrays are returned as *returnColumnSizes array.
  * Note: Both returned array and *columnSizes array must be malloced, assume caller calls free().
  */
+int path[21];
+int pathTop=0;
+// bool pathEmpty(int *pathTop){
+//     if((*pathTop)<=0)    return true;
+//     return false;
+// }
+// void pathPush(int *pathTop, )
+void backtracking(int n, int k, int startIndex, int *returnsize){
+    if(pathTop==k){
+        
+    }
+}
 int** combine(int n, int k, int* returnSize, int** returnColumnSizes) {
     int **out;
 
