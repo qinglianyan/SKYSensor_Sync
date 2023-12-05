@@ -18,7 +18,56 @@ struct TreeNode {
 
 
 struct TreeNode* deleteNode(struct TreeNode* root, int key){
-    struct TreeNode *ret, *tmp, *cur;
+    struct TreeNode *ret, *lleft, *rright;
+    /**
+     * 分为以下几种情况：
+     * 1、root为NULL
+     * 2、root不为NULL，但是不是目标值
+     * 3、root不为NULL，是目标值
+    */
+    if(root==NULL){
+        return NULL;
+    }
+    else if(root->val==key){
+        /**
+         * 1、root->left = NULL, root->right = NULL;
+         * 2、左空，右不空
+         * 3、左不空，右空
+         * 4、都不是NULL
+        */
+        if(root->left==NULL&&root->right==NULL){
+            free(root);
+            return NULL;
+        }
+        else if(root->left==NULL&&root->right!=NULL){
+            ret=root->right;
+            free(root);
+            return ret;
+        }
+        else if(root->left!=NULL&&root->right==NULL){
+            ret=root->left;
+            free(root);
+            return ret;
+        }
+        else{
+            lleft=root->left;
+            rright=root->right;
+            while(rright->left!=NULL){
+                rright=rright->left;
+            }
+            rright->left=lleft;
+            
+            ret=root->right;
+            free(root);
+            return ret;
+        }
+    }
+    else{//不是目标值
+        if(root->val>key) root->left=deleteNode(root->left, key);
+        if(root->val<key) root->right=deleteNode(root->right, key);
+    }
+
+    return root;
 }
 
 void DFS(struct TreeNode *node){
