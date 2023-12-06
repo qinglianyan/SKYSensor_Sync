@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 void GetNext(int * next, const char * s)
 {
@@ -22,18 +23,17 @@ int strStr(char* haystack, char* needle) {
     int i, j;
     int hayLen=strlen(haystack), needleLen=strlen(needle);
     int out=-1;
-    for(i=0;i<hayLen-needleLen;i++){
+    bool flag=false;
+    for(i=0;i<hayLen-needleLen+1;i++){
+        flag=true;
         for(j=0;j<needleLen;j++){
-            if(haystack[i+j]==needle[j]){
-                if(j==needleLen-1){
-                    out=i+j;
-                    break;
-                }
+            if(haystack[i+j]!=needle[j]){
+                flag=false;
+                break;
             }
         }
+        if(flag) return i;
     }
-
-
     return out;
 }
 
@@ -44,7 +44,8 @@ int main(){
     int i, j;
     printf("len of modelstr = %d\n", strlen(modelstr));
     // GetNext(next, modelstr);
-    printf("txtstr=||%s||\n", modelstr);
+    printf("txtstr  =||%s||\n", txtstr);
+    printf("modelstr=||%s||\n", modelstr);
     printf("strstr = %d\n", strStr(txtstr, modelstr));
     //printf("next=||%s||\n", next);
     return 0;
