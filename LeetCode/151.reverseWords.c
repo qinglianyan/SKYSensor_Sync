@@ -91,6 +91,6 @@ int main(){
     printf("%s\n", input);
     output=reverseWords(input);
     printf("%s\n", output);
-    getchar();
+    // getchar();
     return 0;
 }

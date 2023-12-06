@@ -19,7 +19,22 @@ void GetNext(int * next, const char * s)
 }
 
 int strStr(char* haystack, char* needle) {
-    
+    int i, j;
+    int hayLen=strlen(haystack), needleLen=strlen(needle);
+    int out=-1;
+    for(i=0;i<hayLen-needleLen;i++){
+        for(j=0;j<needleLen;j++){
+            if(haystack[i+j]==needle[j]){
+                if(j==needleLen-1){
+                    out=i+j;
+                    break;
+                }
+            }
+        }
+    }
+
+
+    return out;
 }
 
 int main(){
@@ -28,11 +43,9 @@ int main(){
     int next[10];
     int i, j;
     printf("len of modelstr = %d\n", strlen(modelstr));
-    GetNext(next, modelstr);
+    // GetNext(next, modelstr);
     printf("txtstr=||%s||\n", modelstr);
-    for(i=0;i<6;i++){
-        printf("%d", next[i]);
-    }
+    printf("strstr = %d\n", strStr(txtstr, modelstr));
     //printf("next=||%s||\n", next);
     return 0;
 }
