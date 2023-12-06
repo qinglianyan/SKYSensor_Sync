@@ -1,3 +1,4 @@
-2;i++){
-        printf("%d ", path2[i]->val);
-    }printf("\n");
+
+    *returnSize=0;
+
+    out=combine(n, k, returnSize, returnColumnSizes);
