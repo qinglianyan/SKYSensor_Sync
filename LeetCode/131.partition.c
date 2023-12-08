@@ -9,8 +9,7 @@
  * Note: Both returned array and *columnSizes array must be malloced, assume caller calls free().
  */
 
-// 还没写完
-char path[50][20];
+char path[1000][20];
 int pathTop=0;
 
 bool isHuiwen(char *s, int left, int right){
@@ -38,8 +37,10 @@ void backstacking(char *s, char ***out, int index, int *returnSize, int **return
         // for(i=0;i<pathTop;i++){
         //     printf("||%s|| ", path[i]);
         // }printf("\n");
+        
         out[(*returnSize)]=(char **)malloc(sizeof(char *)*pathTop);
         (*returnColumnSizes)[(*returnSize)]=pathTop;
+        // printf("pathTop = %d, *returnSize = %d\n", pathTop, (*returnSize));
         for(i=0;i<pathTop;i++){
             out[(*returnSize)][i]=(char *)malloc(sizeof(char)*17);
             strcpy(out[(*returnSize)][i], path[i]);
@@ -51,15 +52,18 @@ void backstacking(char *s, char ***out, int index, int *returnSize, int **return
     for(i=index;i<strlen(s);i++){
         if(isHuiwen(s, index, i)){
             for(j=0;j<=(i-index);j++){
-                path[pathTop][j]=s[j+i];
+                path[pathTop][j]=s[j+index];
             }
+            // printf("left = %d, right = %d", index, i);
+            path[pathTop][j]='\0';
+            // printf("  path = %s\n", path[pathTop]);
             pathTop++;
-            index=i;
+            // index=i;
         }
         else{
             continue;
         }
-        backstacking(s, out, index+1, returnSize, returnColumnSizes);
+        backstacking(s, out, i+1, returnSize, returnColumnSizes);
         pathTop--;
     }
     return ;
@@ -79,9 +83,8 @@ char*** partition(char* s, int* returnSize, int** returnColumnSizes) {
      * 2、char**指向一个字符串数组
      * 3、char***指向out
     */
-    out=(char ***)malloc(sizeof(char **)*10000);
-    returnColumnSizes=(int **)malloc(sizeof(int*));
-    *returnColumnSizes=(int *)malloc(sizeof(int)*10000);
+    out=(char ***)malloc(sizeof(char **)*50000);
+    *returnColumnSizes=(int *)malloc(sizeof(int)*50000);
     backstacking(s, out, 0, returnSize, returnColumnSizes);
     return out;
 }
@@ -89,17 +92,17 @@ char*** partition(char* s, int* returnSize, int** returnColumnSizes) {
 int main(){
     char ***out;
     int i, j, k;
-    char s[10]="aab";
+    char s[20]="bbbbbbbbbbbbbbbb";
     int *returnSize=(int *)malloc(sizeof(int));
     int **returnColumnSizes=(int **)malloc(sizeof(int *));
     *returnSize=0;
 
     out=partition(s, returnSize, returnColumnSizes);
-    for(i=0;i<(*returnSize);i++){
-        for(j=0;j<(*returnColumnSizes)[i];j++){
-            printf("||%s|| ", out[i][j]);
-        }printf("\n");
-    }
+    // for(i=0;i<(*returnSize);i++){
+    //     for(j=0;j<(*returnColumnSizes)[i];j++){
+    //         printf("||%s|| ", out[i][j]);
+    //     }printf("\n");
+    // }
 
     return 0;
 }
