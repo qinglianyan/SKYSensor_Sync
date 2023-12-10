@@ -15,9 +15,19 @@ int cmp(const void *p1, const void *p2){
 }
 void backstacking(int *nums, int numsSize, int index, int **out, int *returnSize, int **returnColumnSizes){
     int i, j;
-    
+    // for(i=0;i<pathTop;i++){
+    //         printf("%d ", path[i]);
+    // }printf("\n");
+    out[(*returnSize)]=(int *)malloc(sizeof(int)*pathTop);
+    (*returnColumnSizes)[(*returnSize)]=pathTop;
+    for(i=0;i<pathTop;i++){
+        out[(*returnSize)][i]=path[i];
+    }
+    (*returnSize)++;
+
     if(index>=numsSize){
         // 终止条件
+        
         return ;
     }
     // 单步循环
@@ -40,10 +50,10 @@ int** subsets(int* nums, int numsSize, int* returnSize, int** returnColumnSizes)
     }
     out=(int **)malloc(sizeof(int *)*10000);
     (*returnColumnSizes)=(int *)malloc(sizeof(int)*10000);
-    //sort
-    qsort(nums, numsSize, sizeof(int), cmp);
-    //out[0]=[]
-    (*returnColumnSizes)[(*returnSize)++]=0;
+    //sort 不用sort
+    // qsort(nums, numsSize, sizeof(int), cmp);
+    //out[0]=[] 不用手动加入空集
+    // (*returnColumnSizes)[(*returnSize)++]=0;
 
     backstacking(nums, numsSize, 0, out, returnSize, returnColumnSizes);
     return out;
@@ -59,7 +69,7 @@ int main(){
 
     out=subsets(nums, numsSize, returnSize, returnColumnSizes);
     for(i=0;i<(*returnSize);i++){
-        for(j=0;j<(*returnColumnSizes)[(*returnSize)];j++){
+        for(j=0;j<(*returnColumnSizes)[i];j++){
             printf("%d ", out[i][j]);
         }printf("\n");
     }
