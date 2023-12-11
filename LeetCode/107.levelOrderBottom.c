@@ -121,7 +121,7 @@ int main(){
     root=node1;
     // node1->val=1;   node1->left=NULL;   node1->right=NULL;
     // root=NULL;
-    out=levelOrder(root, returnSize, returnColumnSizes);
+    out=levelOrderBottom(root, returnSize, returnColumnSizes);
     for(i=0;i<(*returnSize);i++){
         for(j=0;j<(*returnColumnSizes)[i];j++){
         // for(j=0;j<2;j++){
