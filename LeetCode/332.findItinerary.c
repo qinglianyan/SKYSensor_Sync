@@ -7,7 +7,13 @@
  * Note: The returned array must be malloced, assume caller calls free().
  */
 #define HASH_MAX 17578  //26*26*26=17576
+// #define LIST_MAX 680    //26*26=676
 #define HASH_PLINE 26
+
+struct Node{
+    int val;
+    struct Node *next;
+};
 int path[300][5];
 int pathTop=0;
 int hash[HASH_PLINE][HASH_PLINE];
@@ -29,6 +35,10 @@ char *NumToStr(int in){
     ret[0]=(in%HASH_PLINE)-1+'A';
     return ret;
 }
+void backstacking(){
+    int i, j;
+    
+}
 
 char** findItinerary(char*** tickets, int ticketsSize, 
                     int* ticketsColSize, int* returnSize) {
@@ -44,9 +54,10 @@ char** findItinerary(char*** tickets, int ticketsSize,
     for(i=0;i<ticketsSize;i++){
         numTmp1=StrToNum(tickets[i][0]);
         numTmp2=StrToNum(tickets[i][1]);
-        hash[numTmp1)][numTmp2]=1;
-
+        hash[numTmp1][numTmp2]=1;
+        // 这里还能优化吗
     }
+    
 
     return out;
 }
