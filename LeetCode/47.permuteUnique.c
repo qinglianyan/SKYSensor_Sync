@@ -8,37 +8,56 @@
  * The sizes of the arrays are returned as *returnColumnSizes array.
  * Note: Both returned array and *columnSizes array must be malloced, assume caller calls free().
  */
-#define MAX_OUT 10000
+#define MAX_OUT 800
 int path[10];
 int pathTop=0;
+int hash[22];
 int cmp(const void *p1, const void *p2){
-    return *(int *)p1 - *(int *)p2;
+    return *(int *)p1-*(int *)p2;
 }
-void backstacking(  int *nums, int numsSize, int **out, 
-                    int index, int *returnSize, 
-                    int **returnColumnSizes){
+void backstacking(int *nums, int numsSize, int **out,
+                int index, int *returnSize, 
+                int **returnColumnSizes){
     int i, j;
-    if(pathTop>=numsSize){
+    /**
+     * -10<=nums[i]<=10
+    */
+    
+    if(pathTop==numsSize){
+        // 返回条件
+        // 找到了三个数字，一种排列
+        // for(i=0;i<pathTop;i++){
+        //     printf("%d ", path[i]);
+        // }printf("\n");
+        out[(*returnSize)]=(int *)malloc(sizeof(int)*pathTop);
+        (*returnColumnSizes)[(*returnSize)]=pathTop;
         for(i=0;i<pathTop;i++){
-            printf("%d ", path[i]);
-        }printf("\n");
-        return ;
+            out[(*returnSize)][i]=path[i];
+        }
+        (*returnSize)++;
+        return;
     }
     // 单步循环
     for(i=0;i<numsSize;i++){
-        if(i>index&&nums[i]==nums[i-1]){
+        // if(hash[i]==1){
+        //     continue;
+        // }
+        if(i>0&&nums[i]==nums[i-1]&&hash[i-1]==1){
             continue;
         }
-        path[pathTop++]=nums[i];
-        backstacking(nums, numsSize, out, i+1, returnSize, returnColumnSizes);
-        pathTop--;
+        if(hash[i]==0){
+            hash[i]=1;
+            path[pathTop++]=nums[i];
+            backstacking(nums, numsSize, out, index+1, returnSize, returnColumnSizes);
+            hash[i]=0;
+            pathTop--;
+        }
     }
 
-    return;
+    return ;
 }
-int** permuteUnique(int* nums, int numsSize, 
-                    int* returnSize, 
-                    int** returnColumnSizes) {
+
+int** permuteUnique(int* nums, int numsSize, int* returnSize, int** returnColumnSizes) {
     int **out;
     int i, j;
     (*returnSize)=0;
@@ -61,7 +80,7 @@ int main(){
     int **out;
     int *returnSize=(int *)malloc(sizeof(int));
     int **returnColumnSizes=(int **)malloc(sizeof(int *));
-
+    (*returnSize)=0;
     out=permuteUnique(nums, numsSize, returnSize, returnColumnSizes);
     for(i=0;i<(*returnSize);i++){
         for(j=0;j<(*returnColumnSizes)[i];j++){
@@ -69,4 +88,5 @@ int main(){
         }printf("\n");
     }
     return 0;
+>>>>>>> f039fe643cb8993fd3dfdd24dd95eeec66119163
 }
