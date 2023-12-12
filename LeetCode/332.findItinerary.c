@@ -126,6 +126,7 @@ char** findItinerary(char*** tickets, int ticketsSize,
     int i, j;
     char **out;
     int numTmp1, numTmp2, numTmp;
+    struct NextNode *tmp;
     // init
     (*returnSize)=0;
     pathTop=0;
@@ -148,27 +149,41 @@ char** findItinerary(char*** tickets, int ticketsSize,
         hash[numTmp1][numTmp2]+=1;
         for(j=0;j<storeTop;j++){
             if(numTmp1==NodeStore[j].val){
-
+                tmp=(struct NextNode *)malloc(sizeof(struct NextNode));
+                tmp->nVal=numTmp2;
+                tmp->next=NULL;
+                pnodePush(NodeStore[j].pnode, tmp);
+                break;
             }
         }
         if(j==storeTop){
-            
+            NodeStore[storeTop].val=numTmp1;
+            NodeStore[storeTop].pnode=NULL;
+            tmp=(struct NextNode *)malloc(sizeof(struct NextNode));
+            tmp->nVal=numTmp2;
+            tmp->next=NULL;
+            pnodePush(NodeStore[storeTop].pnode, tmp);
+            storeTop++;
         }
-        NodeStore[storeTop].val=numTmp1;
-        
-        storeTop++;
-
         // 这里还能优化吗
     }
-    numTmp=StrToNum("JFK");
-    path[pathTop++]=numTmp;
-    backstacking(tickets, ticketsSize, ticketsColSize, out, numTmp, returnSize);
-    for(i=0;i<ticketsSize;i++){
-        numTmp1=StrToNum(tickets[i][0]);
-        numTmp2=StrToNum(tickets[i][1]);
-        hash[numTmp1][numTmp2]=0;
-        // 这里还能优化吗
+    for(i=0;i<storeTop;i++){
+        printf("%s : ", NumToStr(NodeStore[i].val));
+        tmp=NodeStore[i].pnode;
+        while(tmp!=NULL){
+            printf("%s ", NumToStr(tmp->nVal));
+        }
+        printf("\n");
     }
+    // numTmp=StrToNum("JFK");
+    // path[pathTop++]=numTmp;
+    // backstacking(tickets, ticketsSize, ticketsColSize, out, numTmp, returnSize);
+    // for(i=0;i<ticketsSize;i++){
+    //     numTmp1=StrToNum(tickets[i][0]);
+    //     numTmp2=StrToNum(tickets[i][1]);
+    //     hash[numTmp1][numTmp2]=0;
+    //     // 这里还能优化吗
+    // }
     return out;
 }
 
@@ -251,7 +266,7 @@ int main(){
     printf("\nEZE = %d\n", num);
     printf("back = %s\n", NumToStr(num));
 
-    // out=findItinerary(tickets, ticketsSize, ticketColSize, returnSize);
+    out=findItinerary(tickets, ticketsSize, ticketColSize, returnSize);
     
     for(i=0;i<(*returnSize);i++){
         printf("%s ", out[i]);
