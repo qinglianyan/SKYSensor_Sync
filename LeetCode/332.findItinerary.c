@@ -6,6 +6,7 @@
 /**
  * Note: The returned array must be malloced, assume caller calls free().
  */
+//写不下去了，思路错了bug太多了，可以看findtinerary2
 #define HASH_MAX 17578  //26*26*26=17576
 // #define LIST_MAX 680    //26*26=676
 #define HASH_PLINE 26
