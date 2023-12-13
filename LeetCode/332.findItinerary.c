@@ -106,7 +106,7 @@ char *NumToStr(int in){
 }
 void backstacking(char ***tickets, int ticketsSize, 
                 int *ticketsColSize, char **out, int now, int *returnSize){
-    int i, j;
+    int i, j, absp;
     struct NextNode *p, *pre;
     if(find==true){
         return;
@@ -133,17 +133,42 @@ void backstacking(char ***tickets, int ticketsSize,
         }
     }
     if(i==storeTop){
-        printf("Error store!\n");
-        return ;
+        // 说明有一个目标点now只作为了终点，没有作为过起点。
+        path[pathTop++]=now;
+        if(pathTop==ticketsSize+1){
+            backstacking(tickets, ticketsSize, ticketsColSize, out, now, returnSize);
+            return;
+        }
+        else{
+            pathTop--;
+            // printf("Error store!\n");
+            return ;
+        }
     }
     for(pre=p;p!=NULL;){
         if(find==true){
             break;
         }
         if(p->nVal<0){
+            if(pre==p){
+                p=p->next;
+            }
+            else{
+                pre=pre->next;
+                p=p->next;
+            }
             continue;
         }
-        // if(pre!=p && )
+        if(pre!=p && -(pre->nVal)==p->nVal && pre->nVal<0){
+            if(pre==p){
+                p=p->next;
+            }
+            else{
+                pre=pre->next;
+                p=p->next;
+            }
+            continue;
+        }
         
         if(hash[now][p->nVal]>=1){
             path[pathTop++]=p->nVal;
@@ -310,7 +335,7 @@ int main(){
 
     num=StrToNum("EZE");
     printf("\nEZE = %d\n", num);
-    printf("back = %s\n", NumToStr(num));
+    printf("back = %s\n", NumToStr(13498));
 
     out=findItinerary(tickets, ticketsSize, ticketColSize, returnSize);
     
