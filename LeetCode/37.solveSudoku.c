@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-// 明天再看，到第一行46之后报错返回了
+
 bool isValid(char **board, int boardSize, 
             int x, int y, int in){
     int i, j;
@@ -11,7 +11,7 @@ bool isValid(char **board, int boardSize,
         if((board[x][i]-'1'+1)==in) return false;
         if((board[i][y]-'1'+1)==in) return false;
     }
-    row=x/3, col=y/3;
+    row=(x/3)*3, col=(y/3)*3;
     for(i=row;i<row+3;i++){
         for(j=col;j<col+3;j++){
             if((board[i][j]-'1'+1)==in) return false;
@@ -19,16 +19,23 @@ bool isValid(char **board, int boardSize,
     }
     return true;
 }
-bool backtracking(char **board, int boardSize,
-                int *boardColSize){
+bool backtracking(char **board, int nowX, int nowY,
+                int boardSize, int *boardColSize){
     int i, j, k;
-    for(i=0;i<boardSize;i++){
-        for(j=0;j<boardColSize[i];j++){
+    for(i=nowX;i<boardSize;i++){
+        if(i==nowX){
+            j=nowY;
+        }
+        else j=0;
+        for(;j<boardColSize[i];j++){
             if(board[i][j]!='.') continue;
             for(k=1;k<=9;k++){
+                if(i==0&&j==8){
+                    i=0;
+                }
                 if(isValid(board, boardSize, i, j, k)){
                     board[i][j]=(char )('1'+k-1);
-                    if(backtracking(board, boardSize, boardColSize)) return true;
+                    if(backtracking(board, i, j, boardSize, boardColSize)) return true;
                     board[i][j]='.';
                 }
             }
@@ -45,7 +52,7 @@ void solveSudoku(char** board, int boardSize,
         printf("boardSize Error!\n");
         return ;
     }
-    if(backtracking(board, boardSize, boardColSize)){
+    if(backtracking(board, 0, 0, boardSize, boardColSize)){
         return ;
     }
     else{
