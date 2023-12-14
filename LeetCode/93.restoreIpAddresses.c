@@ -46,7 +46,7 @@ bool isValidNum(char *s, int left, int right){
     return true;
 }
 
-void backstacking(char *s, char **out, int index, int *returnSize){
+void backtracking(char *s, char **out, int index, int *returnSize){
     int i, j;
     if(index>=strlen(s)&&pathTop==4){
         //找到一个满足题意的
@@ -80,7 +80,7 @@ void backstacking(char *s, char **out, int index, int *returnSize){
         else{
             break;
         }
-        backstacking(s, out, i+1, returnSize);
+        backtracking(s, out, i+1, returnSize);
         pathTop--;
     }
 
@@ -95,7 +95,7 @@ char** restoreIpAddresses(char* s, int* returnSize) {
         return NULL;
     }
     out=(char **)malloc(sizeof(char *)*20);
-    backstacking(s, out, 0, returnSize);
+    backtracking(s, out, 0, returnSize);
     return out;
 }
 

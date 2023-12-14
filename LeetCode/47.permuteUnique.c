@@ -15,7 +15,7 @@ int hash[22];
 int cmp(const void *p1, const void *p2){
     return *(int *)p1-*(int *)p2;
 }
-void backstacking(int *nums, int numsSize, int **out,
+void backtracking(int *nums, int numsSize, int **out,
                 int index, int *returnSize, 
                 int **returnColumnSizes){
     int i, j;
@@ -48,7 +48,7 @@ void backstacking(int *nums, int numsSize, int **out,
         if(hash[i]==0){
             hash[i]=1;
             path[pathTop++]=nums[i];
-            backstacking(nums, numsSize, out, index+1, returnSize, returnColumnSizes);
+            backtracking(nums, numsSize, out, index+1, returnSize, returnColumnSizes);
             hash[i]=0;
             pathTop--;
         }
@@ -69,7 +69,7 @@ int** permuteUnique(int* nums, int numsSize, int* returnSize, int** returnColumn
     qsort(nums, numsSize, sizeof(int), cmp);
     out=(int **)malloc(sizeof(int *)*MAX_OUT);
     (*returnColumnSizes)=(int *)malloc(sizeof(int )*MAX_OUT);
-    backstacking(nums, numsSize, out, 0, returnSize, returnColumnSizes);
+    backtracking(nums, numsSize, out, 0, returnSize, returnColumnSizes);
     return out;
 }
 
@@ -88,5 +88,4 @@ int main(){
         }printf("\n");
     }
     return 0;
->>>>>>> f039fe643cb8993fd3dfdd24dd95eeec66119163
 }

@@ -13,7 +13,7 @@ int pathTop=0;
 int cmp(const void *p1, const void *p2){
     return *(int *)p1-*(int *)p2;
 }
-void backstacking(int *nums, int numsSize, int index, int **out, int *returnSize, int **returnColumnSizes){
+void backtracking(int *nums, int numsSize, int index, int **out, int *returnSize, int **returnColumnSizes){
     int i, j;
     // for(i=0;i<pathTop;i++){
     //         printf("%d ", path[i]);
@@ -34,7 +34,7 @@ void backstacking(int *nums, int numsSize, int index, int **out, int *returnSize
     for(i=index;i<numsSize;i++){
         //push [index, i]
         path[pathTop++]=nums[i];
-        backstacking(nums, numsSize, i+1, out, returnSize, returnColumnSizes);
+        backtracking(nums, numsSize, i+1, out, returnSize, returnColumnSizes);
         pathTop--;
     }
     return ;
@@ -55,7 +55,7 @@ int** subsets(int* nums, int numsSize, int* returnSize, int** returnColumnSizes)
     //out[0]=[] 不用手动加入空集
     // (*returnColumnSizes)[(*returnSize)++]=0;
 
-    backstacking(nums, numsSize, 0, out, returnSize, returnColumnSizes);
+    backtracking(nums, numsSize, 0, out, returnSize, returnColumnSizes);
     return out;
 }
 

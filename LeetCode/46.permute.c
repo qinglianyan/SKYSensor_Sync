@@ -12,7 +12,7 @@
 int path[10];
 int pathTop=0;
 int hash[22];
-void backstacking(int *nums, int numsSize, int **out,
+void backtracking(int *nums, int numsSize, int **out,
                 int index, int *returnSize, 
                 int **returnColumnSizes){
     int i, j;
@@ -41,7 +41,7 @@ void backstacking(int *nums, int numsSize, int **out,
         }
         hash[nums[i]+11]=1;
         path[pathTop++]=nums[i];
-        backstacking(nums, numsSize, out, index+1, returnSize, returnColumnSizes);
+        backtracking(nums, numsSize, out, index+1, returnSize, returnColumnSizes);
         hash[nums[i]+11]=0;
         pathTop--;
     }
@@ -60,7 +60,7 @@ int** permute(int* nums, int numsSize,
     }
     out=(int **)malloc(sizeof(int *)*MAX_OUT);
     (*returnColumnSizes)=(int *)malloc(sizeof(int )*MAX_OUT);
-    backstacking(nums, numsSize, out, 0, returnSize, returnColumnSizes);
+    backtracking(nums, numsSize, out, 0, returnSize, returnColumnSizes);
     return out;
 }
 

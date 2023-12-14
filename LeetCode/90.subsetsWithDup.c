@@ -15,7 +15,7 @@ int cmp(const void *p1, const void *p2){
     return *(int *)p1 - *(int *)p2;
 }
 
-void backstacking(int *nums, int numsSize, int **out, int index, int *returnSize, int **returnColumnSizes){
+void backtracking(int *nums, int numsSize, int **out, int index, int *returnSize, int **returnColumnSizes){
     int i, j;
     // for(i=0;i<pathTop;i++){
     //     printf("%d ", path[i]);
@@ -36,7 +36,7 @@ void backstacking(int *nums, int numsSize, int **out, int index, int *returnSize
             continue;
         }
         path[pathTop++]=nums[i];
-        backstacking(nums, numsSize, out, i+1, returnSize, returnColumnSizes);
+        backtracking(nums, numsSize, out, i+1, returnSize, returnColumnSizes);
         pathTop--;
     }
     return ;
@@ -53,7 +53,7 @@ int** subsetsWithDup(int* nums, int numsSize, int* returnSize, int** returnColum
     out=(int **)malloc(sizeof(int *)*MAX_OUT);
     (*returnColumnSizes)=(int *)malloc(sizeof(int )*MAX_OUT);
     qsort(nums, numsSize, sizeof(int), cmp);
-    backstacking(nums, numsSize, out, 0, returnSize, returnColumnSizes);
+    backtracking(nums, numsSize, out, 0, returnSize, returnColumnSizes);
     return out;
 }
 
