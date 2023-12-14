@@ -26,7 +26,7 @@ bool isHuiwen(char *s, int left, int right){
     return false;
 }
 
-void backstacking(char *s, char ***out, int index, int *returnSize, int **returnColumnSizes){
+void backtracking(char *s, char ***out, int index, int *returnSize, int **returnColumnSizes){
     int i, j;
     if(index>=strlen(s)){
         /**
@@ -63,7 +63,7 @@ void backstacking(char *s, char ***out, int index, int *returnSize, int **return
         else{
             continue;
         }
-        backstacking(s, out, i+1, returnSize, returnColumnSizes);
+        backtracking(s, out, i+1, returnSize, returnColumnSizes);
         pathTop--;
     }
     return ;
@@ -85,7 +85,7 @@ char*** partition(char* s, int* returnSize, int** returnColumnSizes) {
     */
     out=(char ***)malloc(sizeof(char **)*50000);
     *returnColumnSizes=(int *)malloc(sizeof(int)*50000);
-    backstacking(s, out, 0, returnSize, returnColumnSizes);
+    backtracking(s, out, 0, returnSize, returnColumnSizes);
     return out;
 }
 
