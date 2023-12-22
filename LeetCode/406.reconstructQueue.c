@@ -9,20 +9,60 @@
  */
 #define PEOPLE_MAX 2001
 int cmp(const void **p1, const void **p2){
-    return *(int **)p1[0]-*(int **)p2[0];
+    if((*(int **)p2)[0]==(*(int **)p1)[0]){
+        return (*(int **)p1)[1]-(*(int **)p2)[1];
+    }
+    return (*(int **)p2)[0]-(*(int **)p1)[0];
 }
+void push(int **people, int peopleSize, 
+        int *peopleColSize, int **out,
+        int *in, 
+        int *returnSize, int **returnColumnSizes){
+    int i, j;
+
+    return ;
+}
+
 int** reconstructQueue(int** people, 
     int peopleSize, int* peopleColSize, 
     int* returnSize, 
     int** returnColumnSizes){
     int i, j;
     int **out;
+    int mNumber=0;
     qsort(people, peopleSize, sizeof(people[0]), cmp);
-    for(i=0;i<(*returnSize);i++){
-        printf("[");
-        for(j=0;j<2;j++){
-            printf("%d ", people[i][j]);
-        }printf("]\n");
+    // for(i=0;i<peopleSize;i++){
+    //     printf("[");
+    //     for(j=0;j<2;j++){
+    //         printf("%d ", people[i][j]);
+    //     }printf("]\n");
+    // }
+    out=(int **)malloc(sizeof(int *)*peopleSize);
+    (*returnColumnSizes)=(int *)malloc(sizeof(int )*peopleSize);
+    *returnSize=0;
+
+    for(i=0;i<peopleSize;i++){
+        push(people, peopleSize, peopleColSize, out, out[i], returnSize, returnColumnSizes);
+        
+        out[i]=(int *)malloc(sizeof(int)*2);
+        (*returnColumnSizes)[i]=2;
+        mNumber=0;
+        if(i==0){
+            out[i][0]=people[i][0];
+            out[i][1]=people[i][1];
+            (*returnSize)++;
+        }
+        else{
+            mNumber=0;
+            for(j=0;j<(*returnSize);j++){
+                if(out[j][0]>=people[i][0]){
+                    mNumber++;
+                }
+                if(mNumber>=people[i][1]){
+                    break;
+                }
+            }
+        }
     }
     return out;
 }
