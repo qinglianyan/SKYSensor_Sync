@@ -3,9 +3,10 @@
 #include <stdbool.h>
 #include <string.h>
 int cmp(const void *p1, const void *p2){
-    if((int *)p1[0]==(int *)p2[0]){
-        
+    if(((int *)p1)[0]==((int *)p2)[0]){
+        return ((int *)p1)[1]-((int *)p2)[1];
     }
+    return ((int *)p1)[0]-((int *)p2)[0];
 }
 
 int findMinArrowShots(int** points, int pointsSize,
@@ -13,7 +14,13 @@ int findMinArrowShots(int** points, int pointsSize,
     int out=0;
     int i, j;
     qsort(points, pointsSize, sizeof(points[0]), cmp);
-
+    for(i=0;i<pointsSize;i++){
+        printf("[");
+        for(j=0;j<2;j++){
+            printf("%d ", points[i][j]);
+        }
+        printf("]\n");
+    }
     return out;
 }
 
