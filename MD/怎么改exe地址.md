@@ -34,9 +34,9 @@ Code Runner -> 扩展设置 -> Executor Map -> settings.json ->
 更改task.json和launch.json两个文件，具体操作如下所示：
 
 修改task.json文件
-![taskAgo](Pictures\taskAgo.png)
+![taskAgo](Pictures/taskAgo.png)
 
-![taskNow](Pictures\taskNow.png)
+![taskNow](Pictures/taskNow.png)
 
 修改launch.json文件
 
