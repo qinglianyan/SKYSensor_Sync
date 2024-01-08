@@ -20,7 +20,7 @@ void push(int *in, int **out, int *returnSize){
         printf("push Error!\n");
         return ;
     }
-    for(i=(*returnSize)+1;i>=in[i];i--){
+    for(i=(*returnSize);i>in[1];i--){
         out[i]=out[i-1];
     }
     out[in[1]]=in;
@@ -36,12 +36,12 @@ int** reconstructQueue(int** people,
     int **out;
     int mNumber=0;
     qsort(people, peopleSize, sizeof(people[0]), cmp);
-    for(i=0;i<peopleSize;i++){
-        printf("[");
-        for(j=0;j<2;j++){
-            printf("%d ", people[i][j]);
-        }printf("]\n");
-    }
+    // for(i=0;i<peopleSize;i++){
+    //     printf("[");
+    //     for(j=0;j<2;j++){
+    //         printf("%d ", people[i][j]);
+    //     }printf("]\n");
+    // }
     out=(int **)malloc(sizeof(int *)*peopleSize);
     (*returnColumnSizes)=(int *)malloc(sizeof(int )*peopleSize);
     *returnSize=0;
@@ -71,19 +71,19 @@ int main(){
     people[3]=(int *)malloc(sizeof(int)*2);
     people[4]=(int *)malloc(sizeof(int)*2);
     people[5]=(int *)malloc(sizeof(int)*2);
-    people[0][0]=7, people[0][1]=0; peopleColSize[0]=2;
-    people[1][0]=4, people[1][1]=4; peopleColSize[1]=2;
-    people[2][0]=7, people[2][1]=1; peopleColSize[2]=2;
-    people[3][0]=5, people[3][1]=0; peopleColSize[3]=2;
-    people[4][0]=6, people[4][1]=1; peopleColSize[4]=2;
-    people[5][0]=5, people[5][1]=2; peopleColSize[5]=2;
+    people[0][0]=6, people[0][1]=0; peopleColSize[0]=2;
+    people[1][0]=5, people[1][1]=0; peopleColSize[1]=2;
+    people[2][0]=4, people[2][1]=0; peopleColSize[2]=2;
+    people[3][0]=3, people[3][1]=2; peopleColSize[3]=2;
+    people[4][0]=2, people[4][1]=2; peopleColSize[4]=2;
+    people[5][0]=1, people[5][1]=4; peopleColSize[5]=2;
     (*returnSize)=0;
     // [5, 0][7, 0][5, 2][6, 1][4, 4][7, 1]
 
     out=reconstructQueue(people, peopleSize, peopleColSize, returnSize, returnColumnSizes);
     for(i=0;i<(*returnSize);i++){
         printf("[");
-        for(j=0;j<(*returnColumnSizes)[(*returnSize)];j++){
+        for(j=0;j<(*returnColumnSizes)[i];j++){
             printf("%d ", out[i][j]);
         }printf("]\n");
     }
