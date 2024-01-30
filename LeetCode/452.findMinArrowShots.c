@@ -2,24 +2,38 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+
+
+#define MAX_BALLOON 100000
+int *record[MAX_BALLOON];
+int top=0;
 int cmp(const void *p1, const void *p2){
-    if(((int *)p1)[0]==((int *)p2)[0]){
-        return ((int *)p1)[1]-((int *)p2)[1];
+    int **a=(int **)p1, **b=(int **)p2;
+    if((*a)[0]==(*b)[0]){
+        return (*a)[1]>(*b)[1];
     }
-    return ((int *)p1)[0]-((int *)p2)[0];
+    return (*a)[0]>(*b)[0];
 }
 
 int findMinArrowShots(int** points, int pointsSize,
                     int* pointsColSize){
-    int out=0;
+    int out=1;
     int i, j;
     qsort(points, pointsSize, sizeof(points[0]), cmp);
-    for(i=0;i<pointsSize;i++){
-        printf("[");
-        for(j=0;j<2;j++){
-            printf("%d ", points[i][j]);
+    // for(i=0;i<pointsSize;i++){
+    //     printf("[");
+    //     for(j=0;j<2;j++){
+    //         printf("%d ", points[i][j]);
+    //     }
+    //     printf("]\n");
+    // }
+    for(i=1;i<pointsSize;i++){
+        if(points[i][0]>points[i-1][1]){
+            out++;
         }
-        printf("]\n");
+        else{
+            points[i][1]=(points[i-1][1]<points[i][1]?points[i-1][1]:points[i][1]);
+        }
     }
     return out;
 }
