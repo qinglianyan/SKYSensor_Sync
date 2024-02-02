@@ -4,9 +4,9 @@
 #include <string.h>
 
 
-#define MAX_BALLOON 100000
-int *record[MAX_BALLOON];
-int top=0;
+//#define MAX_BALLOON 100000
+//int *record[MAX_BALLOON];
+//int top=0;
 int cmp(const void *p1, const void *p2){
     int **a=(int **)p1, **b=(int **)p2;
     if((*a)[0]==(*b)[0]){
