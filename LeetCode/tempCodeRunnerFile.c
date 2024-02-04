@@ -1,3 +1,3 @@
-n;i++){
-    //     printf("%d ", dp[i]);
-    // }
+Size;i++){
+        printf("%d ", stones[i]);
+    }
