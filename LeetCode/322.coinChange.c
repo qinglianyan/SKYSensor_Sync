@@ -17,18 +17,32 @@ int coinChange(int* coins, int coinsSize,
      *  dp[i][j]=MIN( dp[i-1][j], dp[i][j-coins[i]]+1 )
     */
     memset(dp, 0x3f, sizeof(dp));
-    printf("INT_MAX = %d\n", INT_MAX);
-    for(i=0;i<=coinsSize;i++){
-        for(j=0;j<=amount;j++){
-            printf("%d ", dp[i][j]);
-        }printf("\n");
-    }
-    for(i=0;i<=coinsSize;i++){
-        dp[i][0]=1;
-    }
+    // printf("INT_MAX = %d\n", INT_MAX);
+    // for(i=0;i<=coinsSize;i++){
+    //     for(j=0;j<=amount;j++){
+    //         printf("%d ", dp[i][j]);
+    //     }printf("\n");
+    // }
+    // for(i=0;i<=coinsSize;i++){
+    //     dp[i][0]=1;
+    // }
+    dp[0][0]=0;
     for(i=1;i<=coinsSize;i++){
-        for(j=coins[i-1];j<=amount;j++){
-            dp[i][j]=MIN(dp[i-1][j], dp[i][j-coins[i]]+1);
+        // for(j=coins[i-1];j<=amount;j++){
+        //     if(dp[i][j-coins[i-1]]!=0x3f){
+        //         dp[i][j]=MIN(dp[i-1][j], dp[i][j-coins[i]]+1);
+        //     }
+        //     else{
+        //         dp[i][j]=dp[i-1][j];
+        //     }
+        // }
+        for(j=0;j<=amount;j++){
+            if(j>=coins[i-1]&&dp[i][j-coins[i-1]]!=0x3f){
+                dp[i][j]=MIN(dp[i-1][j], dp[i][j-coins[i]]+1);
+            }
+            else{
+                dp[i][j]=dp[i-1][j];
+            }
         }
         // log
         printf("--------------\n");
