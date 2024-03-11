@@ -1,5 +1,7 @@
-oinsSize;i++){
-        for(j=0;j<=amount;j++){
-            printf("%d ", dp[i][j]);
-        }printf("\n");
-    }
+
+        printf("--------------\n");
+        for(m=0;m<=coinsSize;m++){
+            for(n=0;n<=amount;n++){
+                printf("%d ", dp[m][n]);
+            }printf("\n");
+        }
