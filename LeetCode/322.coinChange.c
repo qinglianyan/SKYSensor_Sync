@@ -17,12 +17,12 @@ int coinChange(int* coins, int coinsSize,
      * 所以推导状态转移方程为：
      *  dp[i][j]=MIN( dp[i-1][j], dp[i][j-coins[i]]+1 )
     */
-    // memset(dp, -1, sizeof(dp));
-    for(i=0;i<=coinsSize;i++){
-        for(j=0;j<=amount;j++){
-            dp[i][j]=0x3f3f3f3f;
-        }
-    }
+    memset(dp, 0x3f3f3f3f, sizeof(dp));
+    // for(i=0;i<=coinsSize;i++){
+    //     for(j=0;j<=amount;j++){
+    //         dp[i][j]=0x3f3f3f3f;
+    //     }
+    // }
     // printf("0x3f = %d\n", temp);
     // printf("coins0 = %d\ncoins1 = %d\ncoins2 = %d\n", coins[0], coins[1], coins[2]);
     for(i=0;i<=coinsSize;i++){
@@ -34,10 +34,6 @@ int coinChange(int* coins, int coinsSize,
     //         printf("%d ", dp[i][j]);
     //     }printf("\n");
     // }
-    // 0 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 
-    // 0 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
-    // 0 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
-    // 0 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
     /**
      * -1说明这里不能用前i个正好凑到总金额
     */
