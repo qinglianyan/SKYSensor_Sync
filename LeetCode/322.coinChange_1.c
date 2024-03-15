@@ -20,6 +20,11 @@ int coinChange(int* coins, int coinsSize,
      * 如果至少需要一个coin[i]的话，那么dp[i][j]=dp[i][j-coins[i]]+1
      * 所以推导状态转移方程为：
      *  dp[i][j]=MIN( dp[i-1][j], dp[i][j-coins[i]]+1 )
+     * 
+     * 注意初始化的时候是初始化的0x3f3f3f3f这是为了定义“无效状态”
+     * 以“背包恰好装满时取到的最大值”问题为例，
+     * 当要求恰好装满时，我们认为背包没恰好装满的话，当前背包的状态无效，
+     * 即无效状态，只有恰好装满时候才是有效状态，只有有效状态才可以推导下一个有效状态
     */
     memset(dp, 0x3f3f3f3f, sizeof(dp));
     // for(i=0;i<=coinsSize;i++){
@@ -30,6 +35,7 @@ int coinChange(int* coins, int coinsSize,
     // printf("0x3f = %d\n", temp);
     // printf("coins0 = %d\ncoins1 = %d\ncoins2 = %d\n", coins[0], coins[1], coins[2]);
     for(i=0;i<=coinsSize;i++){
+        // 其实这个二维数组初始化只需要dp[0][0]=0就行了，不用初始化一列
         dp[i][0]=0;
     }
 

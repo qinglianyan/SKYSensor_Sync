@@ -8,8 +8,9 @@ int coinChange(int* coins, int coinsSize,
                 int amount) {
     int i, j, k;
     int m, n;
-    const int cs=coinsSize, am=amount;
-    int dp[coinsSize+1][amount+1];
+    // int dp[coinsSize+1][amount+1];
+    int dp[amount+1];
+
     /**
      * 这个是第三个版本
      * 滚动数组，只需要一维数组
@@ -19,32 +20,43 @@ int coinChange(int* coins, int coinsSize,
      * 如果至少需要一个coin[i]的话，那么dp[i][j]=dp[i][j-coins[i]]+1
      * 所以推导状态转移方程为：
      *  dp[i][j]=MIN( dp[i-1][j], dp[i][j-coins[i]]+1 )
+     * 
+     * 怎么改写为一维数组呢：
+     * dp[j]表示用硬币凑足总金额j所需要的最少的硬币个数
+     * dp[j]= MIN( dp[j], dp[j-coins[i]]+1 )
     */
     memset(dp, 0x3f3f3f3f, sizeof(dp));
-    dp[0][0]=0;
+    dp[0]=0;
 
-
-    for(i=1;i<=coinsSize;i++){
+    for(i=0;i<coinsSize;i++){
         for(j=0;j<=amount;j++){
-            if(j>=coins[i-1]&&dp[i][j-coins[i-1]]!=0x3f3f3f3f){
-                dp[i][j]=MIN(dp[i-1][j], dp[i][j-coins[i-1]]+1);
+            if(j>=coins[i] && dp[j-coins[i]]!=0x3f3f3f3f){
+                dp[j]=MIN(dp[j], dp[j-coins[i]]+1);
             }
-            else{
-                dp[i][j]=dp[i-1][j];
-            }
-        }
-        // log
-        printf("--------------\n");
-        for(m=0;m<=coinsSize;m++){
-            for(n=0;n<=amount;n++){
-                printf("%d ", dp[m][n]);
-            }printf("\n");
         }
     }
-    if(dp[coinsSize][amount]==0x3f3f3f3f){
+
+    // for(i=1;i<=coinsSize;i++){
+    //     for(j=0;j<=amount;j++){
+    //         if(j>=coins[i-1]&&dp[i][j-coins[i-1]]!=0x3f3f3f3f){
+    //             dp[i][j]=MIN(dp[i-1][j], dp[i][j-coins[i-1]]+1);
+    //         }
+    //         else{
+    //             dp[i][j]=dp[i-1][j];
+    //         }
+    //     }
+    //     // log
+    //     printf("--------------\n");
+    //     for(m=0;m<=coinsSize;m++){
+    //         for(n=0;n<=amount;n++){
+    //             printf("%d ", dp[m][n]);
+    //         }printf("\n");
+    //     }
+    // }
+    if(dp[amount]==0x3f3f3f3f){
         return -1;
     }
-    return dp[coinsSize][amount];
+    return dp[amount];
 }
 
 int main(){
