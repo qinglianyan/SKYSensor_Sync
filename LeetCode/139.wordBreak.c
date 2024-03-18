@@ -6,18 +6,28 @@
 bool wordBreak(char* s, char** wordDict, int wordDictSize) {
     int i, j;
     int m, n;
+    /**
+     * dp[j]表示字符串到下标j是否可以被字典表示出来
+     * 如果dp[j]=true,说明dp[j]可以用字典表示出来
+     * 如果dp[j]=true,且(j, i]也可以用字典表示出来，那么说明dp[i]可以用字典表示出来
+    */
+
     bool dp[strlen(s)+1];
     memset(dp, 0, sizeof(dp));
     dp[0]=true;
+    printf("dp:\n");
+    for(i=0;i<=strlen(s);i++){
+        printf("%d ", dp[i]);
+    }printf("\n");
 
-    for(i=0;i<wordDictSize;i++){
-        for(j=0;j<=strlen(s);j++){
-            if(j>=strlen(wordDict[i]) && dp[j-strlen(wordDict[i])]==true){
-                dp[j]=dp[j] | dp[j-strlen(wordDict[i])];
-            }
-        }
-    }
-
+    // for(i=0;i<wordDictSize;i++){
+    //     for(j=0;j<=strlen(s);j++){
+    //         if(j>=strlen(wordDict[i]) && dp[j-strlen(wordDict[i])]==true){
+    //             dp[j]=dp[j] | dp[j-strlen(wordDict[i])];
+    //         }
+    //     }
+    // }
+return 0;
 
 }
 
