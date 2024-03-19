@@ -1,5 +1,3 @@
-ze;i++){
-        for(j=0;j<=amount;j++){
-            printf("%d ", dp[i][j]);
-        }printf("\n");
-    }
+m<=strlen(s);m++){
+            printf("%d ", dp[m]);
+        }printf("\n"
