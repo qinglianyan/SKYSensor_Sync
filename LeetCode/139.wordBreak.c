@@ -7,19 +7,27 @@ bool wordBreak(char* s, char** wordDict, int wordDictSize) {
     int i, j;
     int m, n;
     /**
-     * dp[j]表示字符串到下标j是否可以被字典表示出来
-     * 如果dp[j]=true,说明dp[j]可以用字典表示出来
-     * 如果dp[j]=true,且(j, i]也可以用字典表示出来，那么说明dp[i]可以用字典表示出来
+     * 首先尝试使用二维数组算一算
+     * dp[i][j]表示从[0, i]下标的字典中，表示字符串[0, j]是否可以拼出
+     * 递推公式：
+     *  if dp[i]=true & find(i, j)=true
+     *      then dp[j]=true
+     * 内外循环：排列数(外背包，内物品)、组合数(外物品，内背包)
     */
 
     bool dp[strlen(s)+1];
     memset(dp, 0, sizeof(dp));
     dp[0]=true;
-    printf("dp:\n");
-    for(i=0;i<=strlen(s);i++){
-        printf("%d ", dp[i]);
-    }printf("\n");
+    // printf("dp:\n");
+    // for(i=0;i<=strlen(s);i++){
+    //     printf("%d ", dp[i]);
+    // }printf("\n");
 
+    for(j=1;j<=strlen(s);j++){
+        for(i=0;i<j;i++){
+            
+        }
+    }
     // for(i=0;i<wordDictSize;i++){
     //     for(j=0;j<=strlen(s);j++){
     //         if(j>=strlen(wordDict[i]) && dp[j-strlen(wordDict[i])]==true){
