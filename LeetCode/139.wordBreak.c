@@ -7,8 +7,10 @@ bool find(char **wordDict, int wordDictSize, char *str){
     int i, j;
     for(i=0;i<wordDictSize;i++){
         if(strcmp(str, wordDict[i])==0){
+            printf("end compare");
             return true;
         }
+        printf("end compare");
     }
     return false;
 }
@@ -16,7 +18,7 @@ bool find(char **wordDict, int wordDictSize, char *str){
 bool wordBreak(char* s, char** wordDict, int wordDictSize) {
     int i, j;
     int m, n;
-    char *tmp=(char *)malloc(sizeof(char )*strlen(s));
+    char *tmp=(char *)malloc(sizeof(char )*strlen(s)+1);
     /**
      * 首先尝试使用二维数组算一算
      * dp[i][j]表示从[0, i]下标的字典中，表示字符串[0, j]是否可以拼出
@@ -36,8 +38,11 @@ bool wordBreak(char* s, char** wordDict, int wordDictSize) {
 
     for(j=1;j<=strlen(s);j++){
         for(i=0;i<j;i++){
-            memset(tmp, 0, sizeof(tmp));
+            printf("in loop\n");
+            // memset(tmp, 0, sizeof(tmp));
+            tmp[0]='\0';
             strncpy(tmp, s+i, j-i);
+            tmp[j-i]='\0';// ⭐⭐strncpy不会自动补全后面的'\0'
             if(dp[i]&&find(wordDict, wordDictSize, tmp)){
                 dp[j]=true;
             }
@@ -74,9 +79,10 @@ int main(){
     // useCase 2
     char s[2]="a";
     int wordDictSize=1;
-    wordDict=(char **)malloc(sizeof(char *)*1);
+    wordDict=(char **)malloc(sizeof(char *)*wordDictSize);
     wordDict[0]=(char *)malloc(sizeof(char)*5);
     strcpy(wordDict[0], "a");
+    // printf("%s\n", wordDict[0]);
     // for(i=0;i<2;i++){
     //     printf("%s\n", wordDict[i]);
     // }
