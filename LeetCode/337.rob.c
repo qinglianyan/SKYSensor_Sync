@@ -33,6 +33,7 @@ void backshow(struct TreeNode *root){
 struct record robTree(struct TreeNode *root){
     int i, j;
     int val1, val2;
+    int tem1, tem2;
     struct record ret, left, right;
     if(root==NULL){
         ret.selected=0, ret.notSelected=0;
@@ -40,12 +41,20 @@ struct record robTree(struct TreeNode *root){
     }
     left=robTree(root->left);
     right=robTree(root->right);
+    // debug
+    if(root->val==4){
+        left=left;
+    }
     // 偷当前root
     val1=root->val+left.notSelected+right.notSelected;
     // 不偷root
-    val2=MAX(left.selected, left.notSelected)+MAX(right.selected, right.notSelected);
+    tem1=MAX(left.selected, left.notSelected);
+    tem2=MAX(right.selected, right.notSelected);
+    val2=tem1+tem2;
     ret.selected=val1;
     ret.notSelected=val2;
+    // debug
+    printf("val = %d, select = %d, notselect = %d\n", root->val, val1, val2);
     return ret;
 
 }
@@ -84,8 +93,9 @@ int main(){
     node3->val=5;node3->left=NULL;node3->right=node6;
     node4->val=1;node4->left=NULL;node4->right=NULL;
     node5->val=3;node5->left=NULL;node5->right=NULL;
-    node6->val=1;node5->left=NULL;node5->right=NULL;
+    node6->val=1;node6->left=NULL;node6->right=NULL;
     root=node1;
+
     backshow(root);
     printf("\n");
     out=rob(root);
