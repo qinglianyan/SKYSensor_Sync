@@ -1,3 +1,3 @@
-m<=strlen(s);m++){
-            printf("%d ", dp[m]);
-        }printf("\n"
+=0;i<pricesSize;i++){
+    //     printf("%d ", prices[i]);
+    // }
