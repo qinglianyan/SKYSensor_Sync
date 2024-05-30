@@ -38,21 +38,42 @@ int main(){
     int maxLine=0, maxDivLength=0;
     int nowLength=0, nowDivLength=0;
     int nowLine=0, nowLineCH=0;
+    char RUname[50];
+    char CHname[50];
+    char Outname[50];
     // FILE *pInFileCH=fopen("export_units-ch.txt", "r");
-    FILE *pInFileCH=fopen("export_vnvs-ch.txt", "r");
-    FILE *pInFileRU=fopen("export_vnvs-ru.txt", "r");
     /**
      * export_ancillaries   读取一行最大字符 1538, Name最大 
      * export_buildings     读取一行最大字符 5928, Name最大 
      * export_units         读取一行最大字符 2269, Name最大 
      * export_vnvs          读取一行最大字符 1763, Name最大 
     */
-    FILE *pOutput=fopen("output.txt", "w");
+    
     char readLineCH[6000];
     char readLineRU[6000];
     char divNameCH[200];
     char divNameRU[200];
     
+    printf("1.原理  :  先从俄文找到被大括号 {} 包括的,要检索的字符串,在中文txt中检索.\n");
+    printf("  如果没有检索到,输出原本的俄文;如果中文txt中翻译为了英文,输出原本的俄文;\n");
+    printf("  只有检索到了,而且被翻译为了中文,才会输出中文.\n");
+    printf("2.编码  :  注意两种语言的文件都需要是UTF-8编码;\n");
+    printf("3.文件名:  注意区分大小写,注意要带后缀;注意要放在与这个exe的同级目录下面,我是用相对路径打开的;如果不在同一个位置可以文件名写绝对路径;\n\n");
+    getchar();
+    printf("请输入俄语文件名称,如 export_ancillaries-RU.txt\n");
+    scanf("%s", RUname);
+    printf("请输入汉语文件名称,如 export_ancillaries-CH.txt\n");
+    scanf("%s", CHname);
+    printf("请输入生成文件名称,如 export_ancillaries-out.txt\n");
+    scanf("%s", Outname);
+
+// FILE *pInFileRU=fopen("export_vnvs-ru.txt", "r");
+// FILE *pInFileCH=fopen("export_vnvs-ch.txt", "r");
+// FILE *pOutput=fopen("output.txt", "w");
+
+    FILE *pInFileRU=fopen(RUname, "r");
+    FILE *pInFileCH=fopen(CHname, "r");
+    FILE *pOutput=fopen(Outname, "w");
 
     if(pInFileCH==NULL){
         printf("Error : InFileCH open error!\n");
@@ -91,6 +112,7 @@ int main(){
             }
             // 到此如果是标准行，且拿到了divNameRU,要在CH中找了
             nowLineCH=0;
+            fseek(pInFileCH, 0, 0);
             while(fgets(readLineCH, sizeof(readLineCH), pInFileCH)!=NULL){
                 nowLineCH++;
                 if(readLineCH[0]=='{'){
