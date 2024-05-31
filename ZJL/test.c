@@ -41,6 +41,7 @@ int main(){
     char RUname[50];
     char CHname[50];
     char Outname[50];
+    bool finded;
     // FILE *pInFileCH=fopen("export_units-ch.txt", "r");
     /**
      * export_ancillaries   读取一行最大字符 1538, Name最大 
@@ -112,6 +113,7 @@ int main(){
             }
             // 到此如果是标准行，且拿到了divNameRU,要在CH中找了
             nowLineCH=0;
+            finded=false;
             fseek(pInFileCH, 0, 0);
             while(fgets(readLineCH, sizeof(readLineCH), pInFileCH)!=NULL){
                 nowLineCH++;
@@ -129,6 +131,7 @@ int main(){
                         divNameCH[j]='\0';
                         // 到这里顺利拿到了divNameCH
                         if(strcmp(divNameCH, divNameRU)==0){ // 找到了
+                            finded=true;
                             if(contains_chinese(readLineCH)){// 中文这段还翻译了
                                 fprintf(pOutput, "%s", readLineCH);
                                 //printf("%s\n", readLineCH);
@@ -141,6 +144,9 @@ int main(){
                         }
                     }
                 }
+            }
+            if(finded==false){
+                fprintf(pOutput, "%s", readLineRU);
             }
 
         }
