@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <string.h>
 
-#define MAX(a, b) (a<b?b:a)
+#define MAX(a, b) (a<b?(b):(a))
 int maxProfit(int k, int* prices, int pricesSize) {
     int i, j;
     int dp[pricesSize][2*k+1];
@@ -11,6 +11,7 @@ int maxProfit(int k, int* prices, int pricesSize) {
     // init
     for(i=0;i<=k;i++){
         dp[0][2*i]=0;
+        if(i==k) break;
         dp[0][2*i+1]=-prices[0];
     }
     for(i=1;i<pricesSize;i++){
@@ -24,18 +25,18 @@ int maxProfit(int k, int* prices, int pricesSize) {
             }
         }
     }
-    return dp[pricesSize][2*k];
+    return dp[pricesSize-1][2*k];
 }
 
 int main(){
     int i, j;
     int k;
     int out;
-    // int prices[3]={2, 4, 1};
-    // int pricesSize=3;
+    int prices[3]={2, 4, 1};
+    int pricesSize=3;
 
-    int prices[6]={3, 2, 6, 5, 0, 3};
-    int pricesSize=6;
+    // int prices[6]={3, 2, 6, 5, 0, 3};
+    // int pricesSize=6;
 
     k=2;
     out=maxProfit(k, prices, pricesSize);
