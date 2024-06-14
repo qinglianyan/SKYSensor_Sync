@@ -15,7 +15,7 @@ int lengthOfLIS(int* nums, int numsSize) {
     for(i=1;i<numsSize;i++){
         if(nums[i]>nums[i-1]){
             numsStore[i]=numsStore[i-1]+1;
-            
+            if(numsStore[i]>maxlen)
         }
     }
     return 0;
