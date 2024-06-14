@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-// 理解错了，这版不对
-// 题目说的是子序列就可以，我理解成需要连续子序列了
+
+
 int lengthOfLIS(int* nums, int numsSize) {
     int i, j;
     int numsStore[numsSize];
