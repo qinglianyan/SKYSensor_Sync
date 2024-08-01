@@ -31,6 +31,7 @@
 1 <= text1.length, text2.length <= 1000
 text1 和 text2 仅由小写英文字符组成。
 */
+#define MAX(a, b) (a>b?a:b)
 int longestCommonSubsequence(char* text1, char* text2) {
     int i, j;
     int len1=strlen(text1), len2=strlen(text2);
@@ -48,17 +49,17 @@ int longestCommonSubsequence(char* text1, char* text2) {
                 dp[i][j]=dp[i-1][j-1]+1;
             }
             else{
-                dp[i][j]=dp[i-1][j-1];
+                dp[i][j]=MAX(dp[i-1][j], dp[i][j-1]);
             }
         }
     }
-    for(i=0;i<=len1;i++){
-        for(j=0;j<=len2;j++){
-            printf("%d ", dp[i][j]);
-        }
-        printf("\n");
-    }
-    return 0;
+    // for(i=0;i<=len1;i++){
+    //     for(j=0;j<=len2;j++){
+    //         printf("%d ", dp[i][j]);
+    //     }
+    //     printf("\n");
+    // }
+    return dp[len1][len2];
 }
 
 int main(){
