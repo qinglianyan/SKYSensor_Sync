@@ -5,10 +5,6 @@
 
 
 int findLengthOfLCIS(int* nums, int numsSize) {
-    
-}
-
-int lengthOfLIS(int* nums, int numsSize) {
     int i, j;
     int numsStore[numsSize];
     int maxLength;
@@ -32,18 +28,19 @@ int lengthOfLIS(int* nums, int numsSize) {
     return maxLength;
 }
 
+
 int main(){
     int i, j;
     // int numsSize=8;
     // int nums[8]={10, 9, 2, 5, 3, 7, 101, 18};
 
-    int numsSize=5;
-    int nums[5]={1, 3, 5, 4, 7};
+    // int numsSize=5;             // ret=3
+    // int nums[5]={1, 3, 5, 4, 7};
 
-    // int numsSize=7;
-    // int nums[7]={7, 7, 7, 7, 7, 7, 7};
+    int numsSize=7;
+    int nums[7]={7, 7, 7, 7, 7, 7, 7};
     int out=0;
-    out=lengthOfLIS(nums, numsSize);
+    out=findLengthOfLCIS(nums, numsSize);
     printf("__out = %d__\n", out);
     return 0;
 }
