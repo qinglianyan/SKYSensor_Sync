@@ -31,7 +31,12 @@ int countSubstrings(char* s) {
             else if(i==j+1 || i==j-1){
                 dp[i][j]=true;
             }
-            else if()
+            else if(dp[i+1][j-1]==true){
+                dp[i][j]=true;
+            }
+            else{
+                dp[i][j]=false;
+            }
         }
     }
 }
