@@ -1,2 +1,10 @@
-
-    char text2[4]="ace";
+ze=8;
+    int *temperatures=(int *)malloc(sizeof(int)*8);
+    temperatures[0]= 73;
+    temperatures[1]= 74;
+    temperatures[2]= 75;
+    temperatures[3]= 71;
+    temperatures[4]= 69;
+    temperatures[5]= 72;
+    temperatures[6]= 76;
+    temperatures[7]= 73;
