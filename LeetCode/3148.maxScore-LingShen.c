@@ -5,67 +5,22 @@
 
 #define MAX(a,b) (a>b?a:b)
 
-int maxScore(int** grid, int gridSize, int* gridColSize) {
-    int i, j, k;
-    int res;
-    int mmax;
-    int retMax=-100001;
-    int m=gridSize, n=gridColSize[0];
-    int dp[m][n];
-    /**
-     * dp[i][j]表示的是以grid[i][j]为终点的最大得分
-     * 对于每个dp[i][j],从上面、左面，都要遍历找到max再赋值
-     * 
-    */
-    // 初始化
-    memset(dp, 0, sizeof(dp));
-    for(i=0;i<m;i++){
-        for(j=0;j<n;j++){
-            mmax=0;
-            if(i>0){
-                if(dp[0][j]>0){
-                    mmax=dp[0][j]+grid[i][j]-grid[0][j];
-                }
-                mmax=grid[i][j]-grid[0][j];
-            }
-            else if(j>0){
-                if(dp[i][0]>0){
-                    mmax=dp[i][0]+grid[i][j]-grid[i][0];
-                }
-                mmax=grid[i][j]-grid[i][0];
-            }
-            for(k=0;k<i;k++){
-                if(dp[k][j]>0){
-                    mmax=MAX(mmax, dp[k][j]+grid[i][j]-grid[k][j]);
-                }
-                else{
-                    mmax=MAX(mmax, grid[i][j]-grid[k][j]);
-                }
-                
-            }
-            for(k=0;k<j;k++){
-                if(dp[i][k]>0){
-                    mmax=MAX(mmax, dp[i][k]+grid[i][j]-grid[i][k]);
-                }
-                else{
-                    mmax=MAX(mmax, grid[i][j]-grid[i][k]);
-                }
-            }
-            dp[i][j]=mmax;
-            if(i!=0 || j!=0){
-                retMax=MAX(retMax, mmax);
-            }
-            printf("%d ", dp[i][j]);
+
+int maxScore(vector<vector<int>>& grid) {
+    int ans = INT_MIN;
+    int m = grid.size(), n = grid[0].size();
+    vector<vector<int>> f(m + 1, vector<int>(n + 1, INT_MAX));
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++) {
+            int mn = min(f[i + 1][j], f[i][j + 1]);
+            ans = max(ans, grid[i][j] - mn);
+            f[i + 1][j + 1] = min(mn, grid[i][j]);
         }
-        printf("\n");
     }
-    // for(i=0;i<m;i++){
-    //     for(j=0;j<n;j++){
-    //         printf("%d ", dp[i][j]);
-    //     }printf("\n");
-    // }
-    return retMax;
+    return ans;
 }
+
+
 
 int main(){
     int i, j;
