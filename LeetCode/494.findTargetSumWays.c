@@ -55,13 +55,13 @@ int findTargetSumWays(int* nums, int numsSize, int target) {
 int main(){
     int i, j;
     int out;
-    // int nums[5]={1, 1, 1, 1, 1};
-    // int numsSize=5;
-    // int target=3;
+    int nums[5]={1, 1, 1, 1, 1};
+    int numsSize=5;
+    int target=3;
 
-    int nums[9]={0, 0, 0, 0, 0, 0, 0, 0, 1};
-    int numsSize=9;
-    int target=1;
+    // int nums[9]={0, 0, 0, 0, 0, 0, 0, 0, 1};
+    // int numsSize=9;
+    // int target=1;
 
     out=findTargetSumWays(nums, numsSize, target);
     printf("__out = %d__\n", out);
