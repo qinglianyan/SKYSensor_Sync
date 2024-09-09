@@ -65,6 +65,7 @@ int minimumSubstringsInPartition(char* s) {
     dp[0]=1;
     for(i=1;i<len;i++){
         dp[i]=i+1;
+        // init hash
         for(j=i;j>=0;j--){
             if(isBalancestr(s, j, i)){
                 if(j==0){
@@ -76,11 +77,11 @@ int minimumSubstringsInPartition(char* s) {
             }
         }
     }
-    // printf("dp : ");
-    // for(i=0;i<len;i++){
-    //     printf("%d ", dp[i]);
-    // }
-    // printf("\n");
+    printf("dp : ");
+    for(i=0;i<len;i++){
+        printf("%d ", dp[i]);
+    }
+    printf("\n");
     return dp[len-1];
 
 }
